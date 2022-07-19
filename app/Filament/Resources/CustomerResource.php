@@ -13,6 +13,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Squire\Models\Country;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction,AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 
 class CustomerResource extends Resource
 {
@@ -125,6 +126,10 @@ class CustomerResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('export'),
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export'),
             ]);
     }
     
