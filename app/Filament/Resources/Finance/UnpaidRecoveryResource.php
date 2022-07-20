@@ -14,6 +14,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction, AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 
 class UnpaidRecoveryResource extends Resource
 {
@@ -105,10 +106,30 @@ class UnpaidRecoveryResource extends Resource
                     ->schema([
                         Forms\Components\Placeholder::make('last_relaunch')
                             ->label('Dernière relance')
-                            ->content(fn (?UnpaidRecovery $record): string => $record->last_relaunch ? $record->last_relaunch->diffForHumans() : '-'),
+                            ->content(function (?UnpaidRecovery $record) {
+                                if ($record) {
+                                    if (is_null($record->last_relaunch)) {
+                                        return '-';
+                                    } else {
+                                        return $record->last_relaunch->diffForHumans();
+                                    }
+                                } else {
+                                    return '-';
+                                }
+                            }),
                         Forms\Components\Placeholder::make('next_relaunch')
                             ->label('Prochaine relance')
-                            ->content(fn (?UnpaidRecovery $record): string => $record->next_relaunch ? $record->next_relaunch->diffForHumans() : '-'),
+                            ->content(function (?UnpaidRecovery $record) {
+                                if ($record) {
+                                    if (is_null($record->next_relaunch)) {
+                                        return '-';
+                                    } else {
+                                        return $record->next_relaunch->diffForHumans();
+                                    }
+                                } else {
+                                    return '-';
+                                }
+                            }),
                     ])
                     ->columnSpan(1),
                 Forms\Components\Card::make()
@@ -143,6 +164,38 @@ class UnpaidRecoveryResource extends Resource
                     ->searchable()
                     ->toggleable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('amount')
+                    ->label('Montant')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('notes')
+                    ->label('Notes')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('process')
+                    ->label('Processus')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('factured_at')
+                    ->label('Date de facturation')
+                    ->date('d F Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('echance_at')
+                    ->label('Date d\'échéance')
+                    ->date('d F Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('last_relaunch')
+                    ->label('Dernière relance')
+                    ->date('d F Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('next_relaunch')
+                    ->label('Prochaine relance')
+                    ->date('d F Y H:i')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Créé')
                     ->date('d F Y H:i')
@@ -151,7 +204,7 @@ class UnpaidRecoveryResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Mise à jour')
                     ->date('d F Y H:i')
-                    ->toggleable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\BadgeColumn::make('status')
                     ->enum([
@@ -176,6 +229,10 @@ class UnpaidRecoveryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('export'),
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export'),
             ]);
     }
     

@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
 use App\Models\Customer;
+use App\Models\UnpaidRecovery;
 
 class StatsOverviewWidget extends BaseWidget
 {
@@ -14,6 +15,7 @@ class StatsOverviewWidget extends BaseWidget
     {
         return [
             Card::make('Clients', Customer::count()),
+            Card::make('Recouvrement', UnpaidRecovery::where('status', '!=', 'ended')->count()),
         ];
     }
 }

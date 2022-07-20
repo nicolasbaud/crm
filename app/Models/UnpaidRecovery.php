@@ -9,8 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class UnpaidRecovery extends Model implements HasMedia
 {
-    use HasFactory;
-    use InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'unpaid_recovery';
 

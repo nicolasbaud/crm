@@ -13,7 +13,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Squire\Models\Country;
-use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction,AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction, AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 
 class CustomerResource extends Resource
 {
