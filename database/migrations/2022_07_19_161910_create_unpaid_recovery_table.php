@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longtext('attachment')->nullable();
             $table->longtext('notes')->nullable();
             $table->enum('process', ['0', '1', '2', '3']);
+            $table->enum('locked', ['true', 'false']);
             $table->enum('status', ['ended', 'in_progress', 'pending']);
             $table->timestamp('factured_at');
             $table->timestamp('echance_at');

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\UnpaidRecovery;
 use App\Models\Customer;
 use App\Notifications\UnpaidRecovery\FirstRelaunch;
+use Carbon\Carbon;
 
 class UnpaidRecoveryObserver
 {
@@ -16,6 +17,12 @@ class UnpaidRecoveryObserver
      */
     public function created(UnpaidRecovery $unpaidRecovery)
     {
+        UnpaidRecovery::where('id', $unpaidRecovery->id)->update([
+            'last_relaunch' => now(),
+            'next_relaunch' => Carbon::now()->addDays(7),
+            'process' => '1',
+            'status' => 'in_progress',
+        ]);
         $user = Customer::find($unpaidRecovery->customerid);
         $user->notify(new FirstRelaunch($unpaidRecovery));
     }

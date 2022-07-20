@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use App\Models\UnpaidRecovery;
 use Carbon\Carbon;
 
-class FirstRelaunch extends Notification
+class SecondRelaunch extends Notification
 {
     use Queueable;
 
@@ -48,12 +48,12 @@ class FirstRelaunch extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Première relance d’impayé - facture #'.$this->unpaidRecovery->ref)
+                    ->subject('Seconde relance d’impayé - facture #'.$this->unpaidRecovery->ref)
                     ->greeting('Madame, Monsieur,')
-                    ->line('Sauf erreur ou omission de notre part, le paiement de la facture n°'.$this->unpaidRecovery->ref.' datée du '.Carbon::parse($this->unpaidRecovery->factured_at)->format('d/m/Y').', pour un montant restant dû de '.$this->unpaidRecovery->amount.' € TTC et arrivée à échéance le '.Carbon::parse($this->unpaidRecovery->echance_at)->format('d/m/Y').', ne nous est pas parvenu.')
+                    ->line('Après relance de notre part, le paiement de la facture n°'.$this->unpaidRecovery->ref.' datée du '.Carbon::parse($this->unpaidRecovery->factured_at)->format('d/m/Y').', pour un montant restant dû de '.$this->unpaidRecovery->amount.' € TTC et arrivée à échéance le '.Carbon::parse($this->unpaidRecovery->echance_at)->format('d/m/Y').', ne nous est toujours pas parvenu.')
                     ->line('Nous vous prions de bien vouloir procéder à son règlement dans les meilleurs délais.')
-                    ->line('Si par ailleurs votre paiement venait à nous parvenir avant la réception de cette relance, nous vous saurions gré de ne pas tenir compte de cette dernière.')
-                    ->line('Vous remerciant de faire le nécessaire, et restant à votre entière disposition pour toute éventuelle question, nous vous prions d’agréer, Madame, Monsieur, l’expression de nos salutations distinguées.');
+                    ->line('Nous tenons à vous préciser que cette relance est la dernière avant mise en demeure et recouvrement.')
+                    ->line('Vous remerciant de faire le nécessaire rapidement, nous vous prions d’agréer, Madame, Monsieur, l’expression de nos salutations distinguées.');
     }
 
     /**

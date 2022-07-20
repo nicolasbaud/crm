@@ -79,6 +79,7 @@ class UnpaidRecoveryResource extends Resource
                             Forms\Components\Radio::make('status')
                                 ->label('Statut')
                                 ->required()
+                                ->disabled(fn (?UnpaidRecovery $record): string => $record ? true : false)
                                 ->options([
                                     'ended' => 'Terminée',
                                     'in_progress' => 'En cours',
@@ -101,6 +102,7 @@ class UnpaidRecoveryResource extends Resource
                                     '2' => '2 relances envoyées',
                                     '3' => '3 relances envoyées',
                                 ])
+                                ->disabled(fn (?UnpaidRecovery $record): string => $record ? true : false),
                         ])->columnSpan(1),
                 Forms\Components\Card::make()
                     ->schema([
