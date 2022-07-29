@@ -30,6 +30,14 @@ class UnpaidRecoveryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        if (static::getModel()::where('status', 'in_progress')->Orwhere('status', 'pending')->count() != 0) {
+            return static::getModel()::where('status', 'in_progress')->Orwhere('status', 'pending')->count();
+        }
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -79,7 +87,18 @@ class UnpaidRecoveryResource extends Resource
                             Forms\Components\Radio::make('status')
                                 ->label('Statut')
                                 ->required()
-                                ->disabled(fn (?UnpaidRecovery $record): string => $record ? true : false)
+                                ->default('in_progress')
+                                ->disabled(function (?UnpaidRecovery $record) {
+                                    if ($record) {
+                                        if ($record->status == 'ended')  {
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    } else {
+                                        return false;
+                                    }
+                                })
                                 ->options([
                                     'ended' => 'Terminée',
                                     'in_progress' => 'En cours',
@@ -87,22 +106,25 @@ class UnpaidRecoveryResource extends Resource
                                 ])
                                 ->descriptions([
                                     'ended' => 'Le recouvrement est terminée.',
-                                    'in_progress' => 'La recouvrement est en cours.',
-                                    'pending' => 'La recouvrement n\'a pas commencé.',
+                                    'in_progress' => 'Le recouvrement débutera automatiquement.',
+                                    'pending' => 'Le recouvrement ne commencera pas.',
                                 ])
                         ])->columnSpan(1),
                     Forms\Components\Card::make()
                         ->schema([
-                            Forms\Components\Select::make('process')
+                            Forms\Components\Placeholder::make('process')
                                 ->label('Actions réalisées')
-                                ->required()
-                                ->options([
-                                    '0' => 'Je n\'ai envoyé aucune relance',
-                                    '1' => '1 relance envoyée',
-                                    '2' => '2 relances envoyées',
-                                    '3' => '3 relances envoyées',
-                                ])
-                                ->disabled(fn (?UnpaidRecovery $record): string => $record ? true : false),
+                                ->content(function (?UnpaidRecovery $record) {
+                                    if ($record) {
+                                        if (is_null($record->process)) {
+                                            return '-';
+                                        } else {
+                                            return $record->process.' relance(s) envoyée(s)';
+                                        }
+                                    } else {
+                                        return '-';
+                                    }
+                                }),
                         ])->columnSpan(1),
                 Forms\Components\Card::make()
                     ->schema([
