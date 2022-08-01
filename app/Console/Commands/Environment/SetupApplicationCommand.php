@@ -5,7 +5,6 @@ namespace App\Console\Commands\Environment;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Illuminate\Support\Facades\Artisan;
 
 class SetupApplicationCommand extends Command
 {
@@ -37,6 +36,7 @@ class SetupApplicationCommand extends Command
         $this->call('crm:environment:mail');
         $this->call('crm:environment:database');
         $this->call('migrate');
+        $this->call('shield:install');
         $this->call('optimize');
         $this->call('up');
         $this->info('CRM is installed ⚡');
