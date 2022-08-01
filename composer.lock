@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d8dfb0532d4c15b01534ca466dd6ad7",
+    "content-hash": "f21e6bc83b36f3f0f099d1d2fef2e37c",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -4171,47 +4171,6 @@
                 "source": "https://github.com/nette/utils/tree/v3.2.7"
             },
             "time": "2022-01-24T11:29:14+00:00"
-        },
-        {
-            "name": "nicolasbaud/filament-commands",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nicolasbaud/filament-commands.git",
-                "reference": "b70a94ef61cac3d4eb471fa24c26dcb83c66bfb3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nicolasbaud/filament-commands/zipball/b70a94ef61cac3d4eb471fa24c26dcb83c66bfb3",
-                "reference": "b70a94ef61cac3d4eb471fa24c26dcb83c66bfb3",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3|^8.0"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "io3x1\\FilamentCommands\\FilamentCommandsProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "io3x1\\FilamentCommands\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Beautiful package for [laravel:artisan] gui for cool kids.",
-            "support": {
-                "source": "https://github.com/nicolasbaud/filament-commands/tree/main"
-            },
-            "time": "2022-07-30T13:42:57+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -11611,8 +11570,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "alperenersoy/filament-export": 15,
-        "nicolasbaud/filament-commands": 20
+        "alperenersoy/filament-export": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

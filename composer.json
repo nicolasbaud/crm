@@ -24,7 +24,6 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "nicolasbaud/filament-commands": "dev-main",
         "ramnzys/filament-email-log": "^0.2.0",
         "spatie/laravel-activitylog": "^4.5",
         "squirephp/countries-fr": "^3.3",
