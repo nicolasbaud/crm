@@ -43,7 +43,7 @@ apt update
 # Add universe repository if you are on Ubuntu 18.04
 apt-add-repository universe
 # Install Dependencies
-apt -y install php8.1 php8.1-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+apt -y install php8.1 php8.1-{cli,gd,mysql,sqlite,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Extra Dependency Used on this Dashboard
