@@ -39,6 +39,7 @@ class RelaunchCron extends Command
                 'next_relaunch' => Carbon::now()->addDays(7),
                 'process' => '2',
                 'locked' => 'true',
+                'status' => 'ended',
             ]);
             $user = Customer::find($info->customerid);
             $user->notify(new SecondRelaunch($info));

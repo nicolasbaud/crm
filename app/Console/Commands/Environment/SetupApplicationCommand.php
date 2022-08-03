@@ -32,11 +32,11 @@ class SetupApplicationCommand extends Command
         $this->line('Installing CRM...');
         $this->call('down');
         $this->call('key:generate');
-        $this->call('shield:install');
         $this->call('crm:environment:app');
         $this->call('crm:environment:mail');
         $this->call('crm:environment:database');
         $this->call('migrate');
+        $this->call('shield:install');
         $this->call('optimize');
         $this->call('up');
         $this->info('CRM is installed ⚡');
