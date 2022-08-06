@@ -31,9 +31,6 @@ class SetupApplicationCommand extends Command
     {
         $this->line('Installing CRM...');
         $this->call('down');
-        $this->call('crm:environment:app');
-        $this->call('crm:environment:mail');
-        $this->call('crm:environment:database');
         $this->call('migrate');
         $this->call('shield:install');
         $this->call('optimize');
