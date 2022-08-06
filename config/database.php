@@ -93,6 +93,29 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        /*
+        | -------------------------------------------------------------------------
+        | Test Database Connection
+        | -------------------------------------------------------------------------
+        |
+        | This connection is used by the integration and HTTP tests for CRM
+        | development. Normal users of the Panel do not need to adjust any settings
+        | in here.
+        */
+        'testing' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'crm'),
+            'username' => env('DB_USERNAME', 'crmuser'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+        ],
+
+
     ],
 
     /*

@@ -100,6 +100,10 @@ class DatabaseSettingsCommand extends Command
             $this->variables['DB_PASSWORD'] = $this->option('password') ?? $this->secret('Mot de passe de la base de données');
         }
 
+        $this->writeToEnvironment($this->variables);
+
+        $this->info($this->console->output());
+        
         try {
             $this->config->set('database.connections.testing', [
                 'driver' => 'mysql',
@@ -127,9 +131,6 @@ class DatabaseSettingsCommand extends Command
             return 1;
         }
 
-        $this->writeToEnvironment($this->variables);
-
-        $this->info($this->console->output());
 
         return 0;
     }
