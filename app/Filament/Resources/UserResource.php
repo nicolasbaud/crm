@@ -17,9 +17,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
+    protected static ?string $title = 'Collaborateurs';
+ 
+    protected static ?string $navigationLabel = 'Collaborateurs';
+
+    protected static ?string $modelLabel = 'Collaborateurs';
+
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
