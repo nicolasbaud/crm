@@ -100,24 +100,8 @@ class DatabaseSettingsCommand extends Command
             $this->variables['DB_PASSWORD'] = $this->option('password') ?? $this->secret('Mot de passe de la base de données');
         }
 
-        $this->writeToEnvironment($this->variables);
-
-        $this->info($this->console->output());
-        
         try {
-            $this->config->set('database.connections.testing', [
-                'driver' => 'mysql',
-                'host' => $this->variables['DB_HOST'],
-                'port' => $this->variables['DB_PORT'],
-                'database' => $this->variables['DB_DATABASE'],
-                'username' => $this->variables['DB_USERNAME'],
-                'password' => $this->variables['DB_PASSWORD'],
-                'charset' => 'utf8mb4',
-                'collation' => 'utf8mb4_unicode_ci',
-                'strict' => true,
-            ]);
-
-            $this->database->connection('testing')->getPdo();
+            $this->testMySQLConnection();
         } catch (PDOException $exception) {
             $this->output->error('Impossible de se connecter au serveur MySQL à l\'aide des informations d\'identification fournies. L\'erreur renvoyée est "'.$exception->getMessage().'".');
             $this->output->error('Vos informations de connexion n\'ont PAS été enregistrées. Vous devrez fournir des informations de connexion valides avant de poursuivre.');
@@ -131,7 +115,30 @@ class DatabaseSettingsCommand extends Command
             return 1;
         }
 
+        $this->writeToEnvironment($this->variables);
+
+        $this->info($this->console->output());
 
         return 0;
+    }
+
+    /**
+     * Test that we can connect to the provided MySQL instance and perform a selection.
+     */
+    private function testMySQLConnection()
+    {
+        $this->config->set('database.connections.testing', [
+            'driver' => 'mysql',
+            'host' => $this->variables['DB_HOST'],
+            'port' => $this->variables['DB_PORT'],
+            'database' => $this->variables['DB_DATABASE'],
+            'username' => $this->variables['DB_USERNAME'],
+            'password' => $this->variables['DB_PASSWORD'],
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'strict' => true,
+        ]);
+
+        $this->database->connection('testing')->getPdo();
     }
 }
