@@ -14,23 +14,23 @@ class AppSettingsCommand extends Command
     use EnvironmentWriterTrait;
 
     public const ALLOWED_CACHE_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        /*'redis' => 'Redis (recommended)', /!\ NOT IMPLEMENTED /!\ */
         'memcached' => 'Memcached',
-        'file' => 'Filesystem',
+        'file' => 'Filesystem (recommended)',
     ];
 
     public const ALLOWED_SESSION_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        /*'redis' => 'Redis (recommended)', /!\ NOT IMPLEMENTED /!\ */
         'memcached' => 'Memcached',
-        'database' => 'MySQL Database',
-        'file' => 'Filesystem',
+        /*'database' => 'MySQL Database', /!\ NOT IMPLEMENTED /!\ */
+        'file' => 'Filesystem (recommended)',
         'cookie' => 'Cookie',
     ];
 
     public const ALLOWED_QUEUE_DRIVERS = [
-        'redis' => 'Redis (recommended)',
+        /*'redis' => 'Redis (recommended)', /!\ NOT IMPLEMENTED /!\ */
         'database' => 'MySQL Database',
-        'sync' => 'Sync',
+        'sync' => 'Sync (recommended)',
     ];
 
     /**
@@ -106,21 +106,21 @@ class AppSettingsCommand extends Command
             $this->config->get('app.timezone')
         );
 
-        $selected = $this->config->get('cache.default', 'redis');
+        $selected = $this->config->get('cache.default', 'file');
         $this->variables['CACHE_DRIVER'] = $this->option('cache') ?? $this->choice(
             'Driver de cache',
             self::ALLOWED_CACHE_DRIVERS,
             array_key_exists($selected, self::ALLOWED_CACHE_DRIVERS) ? $selected : null
         );
 
-        $selected = $this->config->get('session.driver', 'redis');
+        $selected = $this->config->get('session.driver', 'file');
         $this->variables['SESSION_DRIVER'] = $this->option('session') ?? $this->choice(
             'Driver de session',
             self::ALLOWED_SESSION_DRIVERS,
             array_key_exists($selected, self::ALLOWED_SESSION_DRIVERS) ? $selected : null
         );
 
-        $selected = $this->config->get('queue.default', 'redis');
+        $selected = $this->config->get('queue.default', 'sync');
         $this->variables['QUEUE_CONNECTION'] = $this->option('queue') ?? $this->choice(
             'Driver de queue',
             self::ALLOWED_QUEUE_DRIVERS,
