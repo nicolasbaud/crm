@@ -31,7 +31,22 @@ class CalendarResource extends Resource
     {
         return $form
             ->schema([
-                //
+            Forms\Components\Card::make()
+                ->schema([
+                    Forms\Components\TextInput::make('title')->label('Titre')
+                        ->required()
+                        ->columnSpan(12),
+                    Forms\Components\DatePicker::make('start')
+                        ->label('Date de début')
+                        ->displayFormat('d F Y')
+                        ->required()
+                        ->columnSpan(6),
+                    Forms\Components\DatePicker::make('end')
+                        ->label('Date de fin')
+                        ->displayFormat('d F Y')
+                        ->required()
+                        ->columnSpan(6),
+                ])->columns(12),
             ]);
     }
 
