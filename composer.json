@@ -25,6 +25,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "ramnzys/filament-email-log": "^0.2.0",
+        "saade/filament-fullcalendar": "^1.4",
         "spatie/laravel-activitylog": "^4.5",
         "squirephp/countries-fr": "^3.3",
         "z3d0x/filament-logger": "^0.3.0"

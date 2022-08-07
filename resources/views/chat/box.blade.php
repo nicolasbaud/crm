@@ -1,5 +1,5 @@
 @php
-$messages = App\Models\Chat::orderBy('created_at', 'asc')->get();
+$messages = App\Models\Chat::orderBy('created_at', 'asc')->limit(30)->get();
 @endphp
 <div wire:poll>
     <div class="container">

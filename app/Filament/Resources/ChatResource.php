@@ -26,5 +26,5 @@ class ChatResource extends Resource
         return [
             'index' => Pages\ListChats::route('/'),
         ];
-    }    
+    }
 }

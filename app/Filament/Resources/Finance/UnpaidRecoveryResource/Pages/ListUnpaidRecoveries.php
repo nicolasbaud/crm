@@ -9,6 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListUnpaidRecoveries extends ListRecords
 {
     protected static string $resource = UnpaidRecoveryResource::class;
+ 
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            UnpaidRecoveryResource\Widgets\CalendarWidget::class,
+        ];
+    }
 
     protected function getActions(): array
     {
