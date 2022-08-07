@@ -31,14 +31,13 @@ class RelaunchCron extends Command
      */
     public function handle()
     {
-        $unpaidRecovery = UnpaidRecovery::where('next_relaunch', '<', Carbon::now())->where('process', '1')->where('status', 'in_progress')->where('locked', 'false');
+        $unpaidRecovery = UnpaidRecovery::where('next_relaunch', '<', Carbon::now())->where('process', '1')->where('status', 'in_progress');
         if ($unpaidRecovery->count() != '0') {
             $info = $unpaidRecovery->first();
             UnpaidRecovery::where('id', $info->id)->update([
                 'last_relaunch' => now(),
                 'next_relaunch' => Carbon::now()->addDays(7),
                 'process' => '2',
-                'locked' => 'true',
                 'status' => 'ended',
             ]);
             $user = Customer::find($info->customerid);
