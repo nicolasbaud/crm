@@ -12,6 +12,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use lockscreen\FilamentLockscreen\Http\Middleware\Locker;
 
 return [
 
@@ -272,6 +273,7 @@ return [
     'middleware' => [
         'auth' => [
             Authenticate::class,
+            Locker::class,
         ],
         'base' => [
             EncryptCookies::class,

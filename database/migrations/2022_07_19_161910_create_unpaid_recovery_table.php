@@ -23,8 +23,8 @@ return new class extends Migration
             $table->longtext('notes')->nullable();
             $table->enum('process', ['0', '1', '2'])->default(0);
             $table->enum('status', ['ended', 'in_progress', 'pending']);
-            $table->timestamp('factured_at');
-            $table->timestamp('echance_at');
+            $table->timestamp('factured_at')->nullable();
+            $table->timestamp('echance_at')->nullable();
             $table->timestamp('last_relaunch')->nullable();
             $table->timestamp('next_relaunch')->nullable();
             $table->timestamps();
